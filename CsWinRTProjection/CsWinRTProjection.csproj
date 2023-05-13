@@ -36,7 +36,39 @@
 		<IsTrimmable>true</IsTrimmable>
 		<Version Condition="$(VersionSuffix) != ''">$(VersionPrefix)-$(VersionSuffix)</Version>
 	</PropertyGroup>
-
+	<PropertyGroup>
+		<CsWinRTExcludes>
+			Microsoft.UI.Xaml.Controls.WebView2;
+			Microsoft.UI.Xaml.Controls.IWebView2;
+			Microsoft.Web.WebView2;
+			Windows.UI.Text.Core.CoreTextCompositionCompletedEventArgs;
+			Windows.UI.Text.Core.CoreTextCompositionSegment;
+			Windows.UI.Text.Core.CoreTextRange;
+			Windows.UI.Text.Core.CoreTextCompositionStartedEventArgs;
+			Windows.UI.Text.Core.CoreTextEditContext;
+			Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs;
+			Windows.UI.Text.Core.CoreTextLayoutRequestedEventArgs;
+			Windows.UI.Text.Core.CoreTextSelectionRequestedEventArgs;
+			Windows.UI.Text.Core.CoreTextSelectionUpdatingEventArgs;
+			Windows.UI.Text.Core.CoreTextTextRequestedEventArgs;
+			Windows.UI.Text.Core.CoreTextTextUpdatingEventArgs;
+			Windows.UI.Text.Core.CoreTextInputPaneDisplayPolicy;
+			Windows.UI.Text.Core.CoreTextInputScope;
+			Windows.UI.Text.Core.CoreTextLayoutBounds;
+			Windows.UI.Text.Core.CoreTextLayoutRequest;
+			Windows.UI.Text.Core.CoreTextFormatUpdatingReason;
+			Windows.UI.Text.Core.CoreTextFormatUpdatingResult;
+			Windows.UI.Text.UnderlineType;
+			Windows.UI.Text.Core.CoreTextSelectionRequest;
+			Windows.UI.Text.Core.CoreTextServicesManager;
+			Windows.UI.Text.Core.CoreTextTextRequest;
+			Windows.UI.Text.FontWeight;
+			Windows.UI.Text.FontStretch;
+			Windows.UI.Text.FontStyle;
+			Windows.UI.Text.Core.CoreTextSelectionUpdatingResult;
+			Windows.UI.Text.Core.CoreTextTextUpdatingResult
+		</CsWinRTExcludes>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- Remove the built-in Microsoft.Windows.SDK.NET.Ref projection to prevent conflicts with the C#/WinRT generated projection. -->
 		<FrameworkReference Remove="Microsoft.Windows.SDK.NET.Ref" />
@@ -46,8 +78,13 @@
 
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
 		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="$(ContractsVersion)" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.UI.Xaml" Version="2.8.4" GeneratePathProperty="true">
+			<ExcludeAssets>all</ExcludeAssets>
+		</PackageReference>
 	</ItemGroup>
-
+	<ItemGroup>
+		<CsWinRTInputs Include="$(PkgMicrosoft_UI_Xaml)/lib/uap10.0/Microsoft.UI.Xaml.winmd"></CsWinRTInputs>
+	</ItemGroup>
 	<ItemGroup>
 		<Content Include="$(OutDir)\WinRT.Runtime.dll">
 			<Pack>true</Pack>
